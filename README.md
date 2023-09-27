@@ -8,7 +8,10 @@ Chapter 4 Assignment A
 - **Allie Peterson** alpeterson@westmont.edu
 
 ## Overview
-(TODO: Describe in a sentence or two what this assignment is.)
+Assignment Chapter 4A
+- Lexer for the Tokki language written in the Go language
+- Shell Wrapper to allow the lexer to be run independent of the Go language
+- Documentation for design decisions and key takeaways
 
 ## Design Notes
 (TODO: Write any notable design decisions you made as you were working on this assignment.)
