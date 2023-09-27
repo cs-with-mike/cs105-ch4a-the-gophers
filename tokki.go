@@ -6,7 +6,7 @@ import (
 )
 
 // main function, reads filename from second argument
-// usage: go run . sample.tk
+// usage: go run tokki.go sample.tk
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Missing parameter, provide file name!")
