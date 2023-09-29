@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"unicode"
 )
 
 // main function, reads filename from second argument
@@ -17,15 +18,33 @@ func main() {
 		fmt.Println("File reading error", err)
 		return
 	} else {
-		getChar(contents)
-
+		getChar()
 	}
 	fmt.Println("Contents of file:", string(contents))
 }
 
+func getNonBlank() {
+	for unicode.IsSpace(nextChar) {
+		getChar()
+	}
+}
+
+func lex() {
+	lexLen = 0
+
+	switch charClass {
+	case LETTER:
+		//pass
+	case DIGIT:
+		//pass
+	case UNKNOWN:
+		//pass
+	}
+}
+
 // getChar - A Function to get the next character of input and determine its character class
-func getChar(contents []byte) {
-	nextChar = []byte(contents)[0]
+func getChar() {
+	nextChar = contents[0]
 	fmt.Printf(string(nextChar))
 }
 
@@ -33,11 +52,12 @@ func getChar(contents []byte) {
 var (
 	charClass   int
 	lexeme      [100]byte
-	nextChar    byte
+	nextChar    rune
 	lexLen      int
 	token       int
 	nextToken   int
 	inputSource string
+	contents    []rune
 )
 
 // Character Classes
