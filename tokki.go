@@ -38,16 +38,37 @@ func getNonBlank() {
 func lex() {
 	lexLen = 0
 	getNonBlank()
+
 	switch charClass {
+	// Parse identifiers
 	case LETTER:
-		//pass
+		addChar()
+		getChar()
+		for charClass == LETTER || charClass == DIGIT {
+			addChar()
+			getChar()
+		}
+		nextToken = IDENT
+		break
+
+	// Parse integer literals
 	case DIGIT:
-		//pass
+		addChar()
+		getChar()
+		for charClass == DIGIT {
+			addChar()
+			getChar()
+		}
+		nextToken = INT_LIT
+		break
+
 	case UNKNOWN:
-		//pass
-		//case EOF:
-		//pass
+		//lookup(nextChar)
+		getChar()
+		break
 	}
+	//case EOF
+	//pass
 }
 
 // addChar - a function to add nextChar to lexeme
