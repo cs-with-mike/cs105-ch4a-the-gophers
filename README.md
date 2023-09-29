@@ -14,7 +14,8 @@ Assignment Chapter 4A
 - Documentation for design decisions and key takeaways
 
 ## Design Notes
-(TODO: Write any notable design decisions you made as you were working on this assignment.)
+Go has an int32 data type called `rune` which repesents a single Unicode character. Bytes can be easily casted to runes which allowed us to use functions from the `unicode` package (IsSpace(), IsLetter(), IsDigit())
 
+C has native getc() that ends in EOF value when the file reaches the end of the file. In our project, we use Go's os.ReadFile() instead...
 ## Lessons Learned
 (TODO: Describe any lessons learned while you were working on this assignment.)
