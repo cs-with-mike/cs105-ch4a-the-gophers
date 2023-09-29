@@ -9,13 +9,13 @@
 echo "Setting up runtime ..."
 
 # I'm checking Go interpreter's version here just as a placeholder.
-go version # TODO: YOUR RUNTIME SETUP HERE.
+apt install golang
 
-go build
+go version # TODO: YOUR RUNTIME SETUP HERE.
 
 # Run your Tokki lexer, passing in the first command line argument directly to the lexer.
 # Any output to STDOUT should be directed to a text output file titled "out.txt."
 echo "Running Tokki ..."
 
 # As an example, I have provided how I would run my tokki.pyc.
-./tokki.go sample.tk > out.txt
+go run tokki.go $1 > out.txt
