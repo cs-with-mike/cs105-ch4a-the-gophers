@@ -10,28 +10,34 @@ import (
 // usage: go run tokki.go sample.tk
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Missing parameter, provide file name!")
+		fmt.Println("Missing parameter, provide input file name!")
 		return
 	}
-	contents, err := os.ReadFile(os.Args[1])
+	var err error
+	contents, err = os.ReadFile(os.Args[1])
+	fmt.Println(contents)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return
 	} else {
 		getChar()
+		// for nextToken != EOF {
+		// 	lex()
+		// }
+
 	}
 	fmt.Println("Contents of file:", string(contents))
 }
 
 func getNonBlank() {
-	for unicode.IsSpace(nextChar) {
+	for unicode.IsSpace(rune(nextChar)) {
 		getChar()
 	}
 }
 
 func lex() {
 	lexLen = 0
-
+	getNonBlank()
 	switch charClass {
 	case LETTER:
 		//pass
@@ -39,25 +45,34 @@ func lex() {
 		//pass
 	case UNKNOWN:
 		//pass
+		//case EOF:
+		//pass
 	}
 }
 
 // getChar - A Function to get the next character of input and determine its character class
 func getChar() {
 	nextChar = contents[0]
-	fmt.Printf(string(nextChar))
+	if unicode.IsLetter(rune(nextChar)) {
+		charClass = LETTER
+	} else if unicode.IsDigit(rune(nextChar)) {
+		charClass = DIGIT
+	} else {
+		charClass = UNKNOWN
+	}
+
 }
 
 // Global Declaration Variables
 var (
 	charClass   int
 	lexeme      [100]byte
-	nextChar    rune
+	nextChar    byte
 	lexLen      int
 	token       int
 	nextToken   int
 	inputSource string
-	contents    []rune
+	contents    []byte
 )
 
 // Character Classes
