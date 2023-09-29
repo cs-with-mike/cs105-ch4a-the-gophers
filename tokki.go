@@ -25,7 +25,6 @@ func main() {
 		}
 
 	}
-	//fmt.Println("Contents of file:", string(contents))
 }
 
 // Lookup - a function to lookup operators and parentheses and return the token
