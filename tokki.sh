@@ -8,7 +8,15 @@
 # If the runtime is expected to be present on Ubuntu by default, then do nothing.
 echo "Setting up runtime ..."
 
-# I'm checking Python interpreter's version here just as a placeholder.
+echo "Installing Homebrew"
+
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+echo "Installing Go..."
+
+brew update&& brew install golang
+
+# I'm checking Go interpreter's version here just as a placeholder.
 go version # TODO: YOUR RUNTIME SETUP HERE.
 
 # Run your Tokki lexer, passing in the first command line argument directly to the lexer.
