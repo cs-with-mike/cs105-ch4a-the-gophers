@@ -50,6 +50,17 @@ func lex() {
 	}
 }
 
+// addChar - a function to add nextChar to lexeme
+func addChar() {
+	if lexLen <= 98 {
+		lexeme[lexLen] = nextChar
+		lexLen++
+		lexeme[lexLen] = 0
+	} else {
+		fmt.Println("Error - lexeme is too long")
+	}
+}
+
 // getChar - A Function to get the next character of input and determine its character class
 func getChar() {
 	nextChar = contents[0]
