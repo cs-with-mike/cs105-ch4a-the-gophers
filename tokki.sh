@@ -11,7 +11,6 @@ echo "Setting up runtime ..."
 # I'm checking Go interpreter's version here just as a placeholder.
 go version # TODO: YOUR RUNTIME SETUP HERE.
 
-//usr/bin/env go run $0 "$@"; exit
 chmod 744 tokki.go
 
 # Run your Tokki lexer, passing in the first command line argument directly to the lexer.
