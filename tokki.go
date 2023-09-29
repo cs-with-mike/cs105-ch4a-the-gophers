@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"io/ioutil" // not sure if we need this, but we might for input and output patterns 
 )
 
 // main function, reads filename from second argument
@@ -19,3 +20,14 @@ func main() {
 	}
 	fmt.Println("Contents of file:", string(contents))
 }
+
+// Global Declarations 
+var (
+	charClass int 
+	lexeme [100]byte
+	nextChar byte
+	lexLen int 
+	token int
+	nextToken int 
+	inputSource string 
+)
