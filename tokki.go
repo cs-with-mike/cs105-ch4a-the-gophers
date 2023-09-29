@@ -111,7 +111,7 @@ func lex() int {
 		lexeme[4] = 0
 		break
 	} // End of switch
-	fmt.Printf("Next token is: %d, Next lexeme is %s\n", nextToken, lexeme)
+	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], lexeme)
 	return nextToken
 }
 
@@ -180,3 +180,19 @@ const (
 	LEFT_PAREN  = 25
 	RIGHT_PAREN = 26
 )
+
+var tokensCharClassesToString = map[int]string{
+	INT_LIT:     "INT_LIT",
+	IDENT:       "IDENT",
+	ASSIGN_OP:   "ASSIGN_OP",
+	ADD_OP:      "ADD_OP",
+	SUB_OP:      "SUB_OP",
+	MULT_OP:     "MULT_OP",
+	DIV_OP:      "DIV_OP",
+	LEFT_PAREN:  "LEFT_PAREN",
+	RIGHT_PAREN: "RIGHT_PAREN",
+	LETTER:      "LETTER",
+	DIGIT:       "DIGIT",
+	UNKNOWN:     "UNKNOWN",
+	EOF:         "EOF",
+}
