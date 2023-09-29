@@ -181,6 +181,7 @@ const (
 	RIGHT_PAREN = 26
 )
 
+// Map tokens and character classes to string for outputting
 var tokensCharClassesToString = map[int]string{
 	INT_LIT:     "INT_LIT",
 	IDENT:       "IDENT",
