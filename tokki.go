@@ -15,18 +15,17 @@ func main() {
 	}
 	var err error
 	contents, err = os.ReadFile(os.Args[1])
-	fmt.Println(contents)
 	if err != nil {
 		fmt.Println("File reading error", err)
 		return
 	} else {
 		getChar()
-		// for nextToken != EOF {
-		// 	lex()
-		// }
+		for nextToken != EOF {
+			lex()
+		}
 
 	}
-	fmt.Println("Contents of file:", string(contents))
+	//fmt.Println("Contents of file:", string(contents))
 }
 
 // Lookup - a function to lookup operators and parentheses and return the token
@@ -58,7 +57,7 @@ func lookup(char byte) int {
 		break
 	default:
 		addChar()
-		//nextToken = EOF
+		nextToken = EOF
 		break
 	}
 	return nextToken
@@ -70,10 +69,9 @@ func getNonBlank() {
 	}
 }
 
-func lex() {
+func lex() int {
 	lexLen = 0
 	getNonBlank()
-
 	switch charClass {
 	// Parse identifiers
 	case LETTER:
@@ -97,13 +95,24 @@ func lex() {
 		nextToken = INT_LIT
 		break
 
+	// Parentheses and operators
 	case UNKNOWN:
-		//lookup(nextChar)
+		lookup(nextChar)
 		getChar()
 		break
-	}
-	//case EOF
-	//pass
+
+	// EOF
+	case EOF:
+		nextToken = EOF
+		lexeme[0] = 'E'
+		lexeme[1] = 'O'
+		lexeme[2] = 'F'
+		lexeme[3] = 0
+		lexeme[4] = 0
+		break
+	} // End of switch
+	fmt.Printf("Next token is: %d, Next lexeme is %s\n", nextToken, lexeme)
+	return nextToken
 }
 
 // addChar - a function to add nextChar to lexeme
@@ -119,13 +128,22 @@ func addChar() {
 
 // getChar - A Function to get the next character of input and determine its character class
 func getChar() {
-	nextChar = contents[0]
-	if unicode.IsLetter(rune(nextChar)) {
-		charClass = LETTER
-	} else if unicode.IsDigit(rune(nextChar)) {
-		charClass = DIGIT
+	if len(contents) > 0 {
+		nextChar = contents[0]
+		contents = contents[1:]
+		if nextChar != 0 {
+			if unicode.IsLetter(rune(nextChar)) {
+				charClass = LETTER
+			} else if unicode.IsDigit(rune(nextChar)) {
+				charClass = DIGIT
+			} else {
+				charClass = UNKNOWN
+			}
+		} else {
+			charClass = EOF
+		}
 	} else {
-		charClass = UNKNOWN
+		charClass = EOF
 	}
 
 }
@@ -147,6 +165,7 @@ const (
 	LETTER  = 0
 	DIGIT   = 1
 	UNKNOWN = 99
+	EOF     = -1
 )
 
 // Token Codes
