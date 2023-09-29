@@ -9,8 +9,7 @@
 echo "Setting up runtime ..."
 
 # I'm checking Go interpreter's version here just as a placeholder.
-sudo su - root
-apt install golang
+sudo apt install golang
 
 go version # TODO: YOUR RUNTIME SETUP HERE.
 
