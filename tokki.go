@@ -25,7 +25,6 @@ func main() {
 		}
 
 	}
-	//fmt.Println("Contents of file:", string(contents))
 }
 
 // Lookup - a function to lookup operators and parentheses and return the token
@@ -99,6 +98,7 @@ func lex() int {
 	case UNKNOWN:
 		lookup(nextChar)
 		getChar()
+
 		break
 
 	// EOF
@@ -107,14 +107,12 @@ func lex() int {
 		lexeme[0] = 'E'
 		lexeme[1] = 'O'
 		lexeme[2] = 'F'
-		lexeme[3] = 0
-		lexeme[4] = 0
+		for i := 3; i < len(lexeme); i++ {
+			lexeme[i] = 0
+		}
 		break
 	} // End of switch
 	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], lexeme)
-	//                                                                                            ^
-	//                                                                                           /
-	//                                                          This is sus; what datatpype is this?
 	return nextToken
 }
 
@@ -123,8 +121,10 @@ func addChar() {
 	if lexLen <= 98 {
 		lexeme[lexLen] = nextChar
 		lexLen++
-		lexeme[lexLen] = 0
-	} else {
+			for i := lexLen; i < 100; i++ {
+				lexeme[i] = 0
+			}
+		} else {
 		fmt.Println("Error - lexeme is too long")
 	}
 }
