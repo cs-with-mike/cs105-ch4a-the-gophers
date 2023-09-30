@@ -112,7 +112,7 @@ func lex() int {
 		}
 		break
 	} // End of switch
-	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], string(lexeme[:]))
+	fmt.Printf("Next token is: %s | Next lexeme is %s \n", tokensCharClassesToString[nextToken], string(lexeme[:]))
 	return nextToken
 }
 
