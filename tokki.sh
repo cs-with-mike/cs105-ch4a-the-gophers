@@ -8,10 +8,11 @@
 # If the runtime is expected to be present on Ubuntu by default, then do nothing.
 echo "Setting up runtime ..."
 
-# I'm checking Go interpreter's version here just as a placeholder.
-sudo apt install golang
+# Install Go. (mryu)
+sudo apt install golang; go version
 
-go version # TODO: YOUR RUNTIME SETUP HERE.
+# Setup GOCACHE environment variable. (mryu)
+mkdir ./go_cache && export GOCACHE=./go_cache
 
 # Run your Tokki lexer, passing in the first command line argument directly to the lexer.
 # Any output to STDOUT should be directed to a text output file titled "out.txt."
