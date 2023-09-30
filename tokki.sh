@@ -21,3 +21,5 @@ echo "Running Tokki ..."
 
 # As an example, I have provided how I would run my tokki.pyc.
 go run tokki.go $1 > out.txt
+
+cat out.txt
