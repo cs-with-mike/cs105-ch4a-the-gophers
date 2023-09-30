@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"unicode"
+	"strings"
 )
 
 // main function, reads filename from second argument
@@ -112,7 +113,7 @@ func lex() int {
 		}
 		break
 	} // End of switch
-	fmt.Printf("Next token is: %s | Next lexeme is %s \n", tokensCharClassesToString[nextToken], string(lexeme[:]))
+	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], strings.TrimRight(string(lexeme[:]), "\x00"))
 	return nextToken
 }
 
