@@ -112,6 +112,9 @@ func lex() int {
 		break
 	} // End of switch
 	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], lexeme)
+	//                                                                                            ^
+	//                                                                                           /
+	//                                                          This is sus; what datatpype is this?
 	return nextToken
 }
 
