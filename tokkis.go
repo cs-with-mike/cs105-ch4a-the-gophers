@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
-	"unicode"
 	"strings"
+	"unicode"
 )
 
 // main function, reads filename from second argument
@@ -122,10 +122,10 @@ func addChar() {
 	if lexLen <= 98 {
 		lexeme[lexLen] = nextChar
 		lexLen++
-			for i := lexLen; i < 100; i++ {
-				lexeme[i] = 0
-			}
-		} else {
+		for i := lexLen; i < 100; i++ {
+			lexeme[i] = 0
+		}
+	} else {
 		fmt.Println("Error - lexeme is too long")
 	}
 }
@@ -201,3 +201,9 @@ var tokensCharClassesToString = map[int]string{
 	UNKNOWN:     "    UNKNOWN",
 	EOF:         "        EOF",
 }
+
+// expr function
+// term function
+// factor funciton
+
+// needs to be same format to pass the tests
