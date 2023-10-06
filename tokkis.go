@@ -248,6 +248,7 @@ func term() {
 // factor funciton
 // this one needs more things
 func factor() {
+
 	// announces youve entered a factor section of the parser
 	fmt.Printf("Enter <factor>\n")
 
@@ -257,11 +258,10 @@ func factor() {
 		lex()
 		// If the RHS is ( <expr> ),
 		// call lex to pass over the left parenthesis, call expr, and check for the right parenthesis
-		if nextToken == expr() {
-			lex() // to pass over left parenth?
-			expr()
-			// check for the right parenthesies?
-		}
+		// if nextToken ==   {
+		// lex() // to pass over left parenth?
+		// expr()
+		// check for the right parenthesies?
 	} else {
 		if nextToken == LEFT_PAREN {
 			lex()
@@ -269,13 +269,13 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
-				error() // parser needs to recover from detecting a syntax error-- should be here
+				fmt.Printf("Error-- invalid tokki syntax")
 			}
 			// End of if (nextToken == ... ???
 			// It was not an id, an integer literal, or a left parenthesis, so
 		} else {
 			//
-			error() // parser needs to recover from detecting a syntax error-- should be here
+			fmt.Printf("Error-- invalid tokki syntax")
 		}
 	}
 
