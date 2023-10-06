@@ -211,10 +211,8 @@ var tokensCharClassesToString = map[int]string{
 
 // expr function
 func expr() {
-	// why am i doign this? what is <expr>?
-	// printf("Enter <expr>\n");
+	// where parser starts
 	fmt.Printf("Enter <expr>\n")
-
 	// Parse the first term
 	term()
 	// As long as the next token is + or -, get the next token and parse the next term
@@ -232,10 +230,8 @@ func expr() {
    <term> -> <factor> {(* | /) <factor>) g
 */
 func term() {
-	// why do i do this?
-	//printf("Enter <term>\n");
+	// shows your leaving the term section of the picture-- that RHS section almost
 	fmt.Printf("Enter <term>\n")
-
 	// Parse the first factor
 	factor()
 	// As long as the next token is * or /, get the next token and parse the next factor
@@ -245,23 +241,23 @@ func term() {
 		// parses next factor
 		factor()
 	}
-	// what is this? what am i doing here
+	// leaves the term "branch" or section
 	fmt.Printf("Exit <term>\n")
 }
 
 // factor funciton
+// this one needs more things
 func factor() {
-	// what is this doing??
+	// announces youve entered a factor section of the parser
 	fmt.Printf("Enter <factor>\n")
 
-	// Determine which RHS
-	// if (nextToken == IDENT || nextToken == INT_LIT)
+	// Determine which is the RHS-- is that what this is sdoing?
 	if nextToken == IDENT || nextToken == INT_LIT {
 		//Get the next token
 		lex()
 		// If the RHS is ( <expr> ),
 		// call lex to pass over the left parenthesis, call expr, and check for the right parenthesis
-		if RHS == expr {
+		if nextToken == expr() {
 			lex() // to pass over left parenth?
 			expr()
 			// check for the right parenthesies?
@@ -273,18 +269,21 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
-				err()
+				error() // parser needs to recover from detecting a syntax error-- should be here
 			}
 			// End of if (nextToken == ... ???
 			// It was not an id, an integer literal, or a left parenthesis, so
 		} else {
-			err()
+			//
+			error() // parser needs to recover from detecting a syntax error-- should be here
 		}
-	} // End of else
+	}
 
-	// printf("Exit <factor>\n");;
+	// leaves the factor section of the parser
 	fmt.Printf("Exit <factor>\n")
 }
+
+// where is this called to work
 
 // needs to be same format to pass the tests
 // whaat
