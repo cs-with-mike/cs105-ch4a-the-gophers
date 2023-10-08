@@ -23,6 +23,7 @@ func main() {
 		getChar()
 		for nextToken != EOF {
 			lex()
+			factor()
 		}
 
 	}
@@ -245,6 +246,11 @@ func term() {
 	fmt.Printf("Exit <term>\n")
 }
 
+func errorOut() {
+	fmt.Printf("Error-- invalid tokki syntax\n")
+	os.Exit(1)
+}
+
 // factor funciton
 // this one needs more things
 func factor() {
@@ -269,13 +275,14 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
-				fmt.Printf("Error-- invalid tokki syntax")
+				fmt.Printf("error1\n")
+				errorOut()
 			}
 			// End of if (nextToken == ... ???
 			// It was not an id, an integer literal, or a left parenthesis, so
 		} else {
-			//
-			fmt.Printf("Error-- invalid tokki syntax")
+			fmt.Printf("error2\n")
+			errorOut()
 		}
 	}
 
