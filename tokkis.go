@@ -21,10 +21,11 @@ func main() {
 		return
 	} else {
 		getChar()
-		//for nextToken != EOF {
-		lex()
-		factor()
-		//}
+		for nextToken != EOF {
+			lex()
+			expr()
+			//factor()
+		}
 
 	}
 }
