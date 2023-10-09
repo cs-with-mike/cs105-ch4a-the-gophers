@@ -214,7 +214,7 @@ var tokensCharClassesToString = map[int]string{
 // expr function
 func expr() {
 	// where parser starts
-	fmt.Printf("Enter <expr>\n")
+	//fmt.Printf("Enter <expr>\n")
 	// Parse the first term
 	term()
 	// As long as the next token is + or -, get the next token and parse the next term
@@ -223,7 +223,7 @@ func expr() {
 		term()
 	}
 	// what is this? what am i doing here
-	fmt.Printf("Exit <expr>\n")
+	//fmt.Printf("Exit <expr>\n")
 }
 
 // term function
@@ -233,7 +233,7 @@ func expr() {
 */
 func term() {
 	// shows your leaving the term section of the picture-- that RHS section almost
-	fmt.Printf("Enter <term>\n")
+	//fmt.Printf("Enter <term>\n")
 	// Parse the first factor
 	factor()
 	// As long as the next token is * or /, get the next token and parse the next factor
@@ -244,7 +244,7 @@ func term() {
 		factor()
 	}
 	// leaves the term "branch" or section
-	fmt.Printf("Exit <term>\n")
+	//fmt.Printf("Exit <term>\n")
 }
 
 func errorOut() {
@@ -257,7 +257,7 @@ func errorOut() {
 func factor() {
 
 	// announces youve entered a factor section of the parser
-	fmt.Printf("Enter <factor>\n")
+	//fmt.Printf("Enter <factor>\n")
 
 	// Determine which is the RHS-- is that what this is sdoing?
 	if nextToken == IDENT || nextToken == INT_LIT {
@@ -282,13 +282,13 @@ func factor() {
 			// End of if (nextToken == ... ???
 			// It was not an id, an integer literal, or a left parenthesis, so
 		} else {
-			fmt.Printf("error2\n")
+			//fmt.Printf("error2\n")
 			errorOut()
 		}
 	}
 
 	// leaves the factor section of the parser
-	fmt.Printf("Exit <factor>\n")
+	//fmt.Printf("Exit <factor>\n")
 }
 
 // where is this called to work
