@@ -91,6 +91,8 @@ func main() {
 		if nextToken != EOF {
 			lex()
 			expr()
+		} else {
+			lex()
 		}
 	}
 }
