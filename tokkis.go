@@ -93,9 +93,7 @@ func main() {
 		} else {
 			lex()
 			expr()
-		}/* else {
-			fmt.Printf("exit status 1\n")
-		}*/
+		}
 	}
 }
 
@@ -296,15 +294,15 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
-				fmt.Printf("Missing matching right parenthesis.\n")
+				//fmt.Printf("Missing matching right parenthesis.\n")
 				fmt.Printf("exit status 1\n")
-				os.Exit(1);
+				//os.Exit(1);
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			fmt.Printf("Incorrect tokki syntax.\n")
+			//fmt.Printf("Incorrect tokki syntax.\n")
 			fmt.Printf("exit status 1\n")
-			os.Exit(1);
+			//os.Exit(1);
 		}
 	}
 	//fmt.Printf("Exit <factor>\n")  // uncomment to trace tree
