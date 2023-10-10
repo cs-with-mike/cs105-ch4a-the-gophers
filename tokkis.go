@@ -88,12 +88,14 @@ func main() {
 		return
 	} else {
 		getChar()
-		if nextToken != EOF {
+		if charClass == EOF {
 			lex()
-			expr()
 		} else {
 			lex()
-		}
+			expr()
+		}/* else {
+			fmt.Printf("exit status 1\n")
+		}*/
 	}
 }
 
@@ -158,6 +160,7 @@ func getNonBlank() {
 		}
 	} else {
 		fmt.Println("Error - lexeme is too long")
+		fmt.Println("exit status 1")
 	}
 }
 
@@ -182,7 +185,6 @@ func getChar() {
 		}
 	} else {
 		charClass = EOF
-		nextToken = EOF
 	}
 }
 
@@ -291,26 +293,17 @@ func factor() {
 		if nextToken == LEFT_PAREN {
 			lex()
 			expr()
-
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
-				// missing matching right parenthesis
-				syntaxError()
+				fmt.Printf("Missing matching right parenthesis.\n")
+				fmt.Printf("exit status 1\n")
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			syntaxError()
+			fmt.Printf("Incorrect tokki syntax.\n")
+			fmt.Printf("exit status 1\n")
 		}
 	}
 	//fmt.Printf("Exit <factor>\n")  // uncomment to trace tree
-}
-
-/*
- * function: syntaxError
- * purpose:  Output syntax error message
- */
-func syntaxError() {
-	fmt.Printf("Error-- invalid tokki syntax\n")
-	os.Exit(1)
 }
