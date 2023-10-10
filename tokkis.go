@@ -88,7 +88,7 @@ func main() {
 		return
 	} else {
 		getChar()
-		for nextToken != EOF {
+		if nextToken != EOF {
 			lex()
 			expr()
 		}
@@ -140,6 +140,47 @@ func lookup(char byte) int {
 func getNonBlank() {
 	for unicode.IsSpace(rune(nextChar)) {
 		getChar()
+	}
+}
+
+/*
+ * function: addChar
+ * purpose:  Adds nextChar to lexeme and checks to make sure it isn't too long
+ */
+ func addChar() {
+	if lexLen <= 98 {
+		lexeme[lexLen] = nextChar
+		lexLen++
+		for i := lexLen; i < 100; i++ {
+			lexeme[i] = 0
+		}
+	} else {
+		fmt.Println("Error - lexeme is too long")
+	}
+}
+
+/*
+ * function: getChar
+ * purpose:  Gets the next character of input and determines its character class
+ */
+func getChar() {
+	if len(contents) > 0 {
+		nextChar = contents[0]
+		contents = contents[1:]
+		if nextChar != 0 {
+			if unicode.IsLetter(rune(nextChar)) {
+				charClass = LETTER
+			} else if unicode.IsDigit(rune(nextChar)) {
+				charClass = DIGIT
+			} else {
+				charClass = UNKNOWN
+			}
+		} else {
+			charClass = EOF
+		}
+	} else {
+		charClass = EOF
+		nextToken = EOF
 	}
 }
 
@@ -197,46 +238,6 @@ func lex() int {
 	// Print token and lexeme
 	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], strings.TrimRight(string(lexeme[:]), "\x00"))
 	return nextToken
-}
-
-/*
- * function: addChar
- * purpose:  Adds nextChar to lexeme and checks to make sure it isn't too long
- */
-func addChar() {
-	if lexLen <= 98 {
-		lexeme[lexLen] = nextChar
-		lexLen++
-		for i := lexLen; i < 100; i++ {
-			lexeme[i] = 0
-		}
-	} else {
-		fmt.Println("Error - lexeme is too long")
-	}
-}
-
-/*
- * function: getChar
- * purpose:  Gets the next character of input and determines its character class
- */
-func getChar() {
-	if len(contents) > 0 {
-		nextChar = contents[0]
-		contents = contents[1:]
-		if nextChar != 0 {
-			if unicode.IsLetter(rune(nextChar)) {
-				charClass = LETTER
-			} else if unicode.IsDigit(rune(nextChar)) {
-				charClass = DIGIT
-			} else {
-				charClass = UNKNOWN
-			}
-		} else {
-			charClass = EOF
-		}
-	} else {
-		charClass = EOF
-	}
 }
 
 /*
