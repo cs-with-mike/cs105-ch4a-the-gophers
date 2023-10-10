@@ -35,10 +35,11 @@ Go doesn't allow us to output the `CONST` name directly, so we created a mapping
 
 If we just printed the lexeme casted to a string, it would contain a tail of `null` values, so we use `TrimRight()` from the `strings` package to remove the null "\x00" values.
 **Assignment Chapter 4B**
+We were able to easily adapt the functions in the book from C to go, but we had to figure out what our initial main program would look like. 
 
 
 ## Lessons Learned
-**Assignment Chapter 4A**
+**Assignment Chapter 4A **
 We learned that Go has a relatively similar syntax (i.e. switch statements) & very similar datatypes to C, but that the functions provided in both vary. Go's vast package libraries provide some nice workarounds for the native functions used in C.
 
 Also because auto-grader's environment (Ubuntu 22.04) did not have Go installed like it did Python, we got to learn how to write a more intricate shell script that installs Go and creates the GOCACHE env variable before running.
