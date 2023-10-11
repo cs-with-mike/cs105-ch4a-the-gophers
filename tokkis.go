@@ -1,3 +1,17 @@
+/*
+ * File:		tokkis.go
+ * Class: 		CS-105 Programming Languages
+ * Assignment:	Excercise 4b
+ * Professor: 	Mike Ryu
+ * Date: 		10/04/23
+ * Purpose: 	To parse the tokki language using recursive-descent
+ * Authors:		Trevor English, tenglish@westmont.edu
+ * 				Nancy Everest, neverest@westmont.edu
+ * 				Allie Peterson, alpeterson@westmont.edu
+ * Reference:	Concepts of Programming Languages, 12th Edition by Robert Sebesta
+ *				Chapter 4.4 Lexical and Syntax Analysis: Recursive-Descent Parsing, p 176
+ */
+
 package main
 
 import (
@@ -7,152 +21,7 @@ import (
 	"unicode"
 )
 
-// main function, reads filename from second argument
-// usage: go run tokki.go sample.tk
-func main() {
-	if len(os.Args) < 2 {
-		fmt.Println("Missing parameter, provide input file name!")
-		return
-	}
-	var err error
-	contents, err = os.ReadFile(os.Args[1])
-	if err != nil {
-		fmt.Println("File reading error", err)
-		return
-	} else {
-		getChar()
-		for nextToken != EOF {
-			lex()
-		}
-
-	}
-}
-
-// Lookup - a function to lookup operators and parentheses and return the token
-func lookup(char byte) int {
-	switch char {
-	case '(':
-		addChar()
-		nextToken = LEFT_PAREN
-		break
-	case ')':
-		addChar()
-		nextToken = RIGHT_PAREN
-		break
-	case '+':
-		addChar()
-		nextToken = ADD_OP
-		break
-	case '-':
-		addChar()
-		nextToken = SUB_OP
-		break
-	case '*':
-		addChar()
-		nextToken = MULT_OP
-		break
-	case '/':
-		addChar()
-		nextToken = DIV_OP
-		break
-	default:
-		addChar()
-		nextToken = EOF
-		break
-	}
-	return nextToken
-}
-
-func getNonBlank() {
-	for unicode.IsSpace(rune(nextChar)) {
-		getChar()
-	}
-}
-
-func lex() int {
-	lexLen = 0
-	getNonBlank()
-	switch charClass {
-	// Parse identifiers
-	case LETTER:
-		addChar()
-		getChar()
-		for charClass == LETTER || charClass == DIGIT {
-			addChar()
-			getChar()
-		}
-		nextToken = IDENT
-		break
-
-	// Parse integer literals
-	case DIGIT:
-		addChar()
-		getChar()
-		for charClass == DIGIT {
-			addChar()
-			getChar()
-		}
-		nextToken = INT_LIT
-		break
-
-	// Parentheses and operators
-	case UNKNOWN:
-		lookup(nextChar)
-		getChar()
-
-		break
-
-	// EOF
-	case EOF:
-		nextToken = EOF
-		lexeme[0] = 'E'
-		lexeme[1] = 'O'
-		lexeme[2] = 'F'
-		for i := 3; i < len(lexeme); i++ {
-			lexeme[i] = 0
-		}
-		break
-	} // End of switch
-	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], strings.TrimRight(string(lexeme[:]), "\x00"))
-	return nextToken
-}
-
-// addChar - a function to add nextChar to lexeme
-func addChar() {
-	if lexLen <= 98 {
-		lexeme[lexLen] = nextChar
-		lexLen++
-		for i := lexLen; i < 100; i++ {
-			lexeme[i] = 0
-		}
-	} else {
-		fmt.Println("Error - lexeme is too long")
-	}
-}
-
-// getChar - A Function to get the next character of input and determine its character class
-func getChar() {
-	if len(contents) > 0 {
-		nextChar = contents[0]
-		contents = contents[1:]
-		if nextChar != 0 {
-			if unicode.IsLetter(rune(nextChar)) {
-				charClass = LETTER
-			} else if unicode.IsDigit(rune(nextChar)) {
-				charClass = DIGIT
-			} else {
-				charClass = UNKNOWN
-			}
-		} else {
-			charClass = EOF
-		}
-	} else {
-		charClass = EOF
-	}
-
-}
-
-// Global Declaration Variables
+// Global Variables
 var (
 	charClass   int
 	lexeme      [100]byte
@@ -202,8 +71,239 @@ var tokensCharClassesToString = map[int]string{
 	EOF:         "        EOF",
 }
 
-// expr function
-// term function
-// factor funciton
+/*
+ * function: main
+ * purpose:  Kicks off recursive lexer and parser, reading input file from second argument
+ * usage:    go run tokkis.go sample.tk
+ */
+func main() {
+	if len(os.Args) < 2 {
+		fmt.Println("Missing parameter, provide input file name!")
+		return
+	}
+	var err error
+	contents, err = os.ReadFile(os.Args[1])
+	if err != nil {
+		fmt.Println("File reading error", err)
+		return
+	} else {
+		getChar()
+		if charClass == EOF {
+			lex()
+		} else {
+			lex()
+			expr()
+		}
+	}
+}
 
-// needs to be same format to pass the tests
+/*
+ * function: lookup
+ * purpose:  Takes a char, looks up operators and parentheses, and returns the token
+ */
+func lookup(char byte) int {
+	switch char {
+	case '(':
+		addChar()
+		nextToken = LEFT_PAREN
+		break
+	case ')':
+		addChar()
+		nextToken = RIGHT_PAREN
+		break
+	case '+':
+		addChar()
+		nextToken = ADD_OP
+		break
+	case '-':
+		addChar()
+		nextToken = SUB_OP
+		break
+	case '*':
+		addChar()
+		nextToken = MULT_OP
+		break
+	case '/':
+		addChar()
+		nextToken = DIV_OP
+		break
+	default:
+		addChar()
+		nextToken = EOF
+		break
+	}
+	return nextToken
+}
+
+/*
+ * function: getNonBlank
+ * purpose:  Finds the next non-blank char
+ */
+func getNonBlank() {
+	for unicode.IsSpace(rune(nextChar)) {
+		getChar()
+	}
+}
+
+/*
+ * function: addChar
+ * purpose:  Adds nextChar to lexeme and checks to make sure it isn't too long
+ */
+ func addChar() {
+	if lexLen <= 98 {
+		lexeme[lexLen] = nextChar
+		lexLen++
+		for i := lexLen; i < 100; i++ {
+			lexeme[i] = 0
+		}
+	} else {
+		fmt.Println("Error - lexeme is too long")
+		fmt.Println("exit status 1")
+	}
+}
+
+/*
+ * function: getChar
+ * purpose:  Gets the next character of input and determines its character class
+ */
+func getChar() {
+	if len(contents) > 0 {
+		nextChar = contents[0]
+		contents = contents[1:]
+		if nextChar != 0 {
+			if unicode.IsLetter(rune(nextChar)) {
+				charClass = LETTER
+			} else if unicode.IsDigit(rune(nextChar)) {
+				charClass = DIGIT
+			} else {
+				charClass = UNKNOWN
+			}
+		} else {
+			charClass = EOF
+		}
+	} else {
+		charClass = EOF
+	}
+}
+
+/*
+ * function: lex
+ * purpose:  Prints next token and lexeme, and returns nextToken
+ */
+func lex() int {
+	lexLen = 0
+	getNonBlank()
+	switch charClass {
+
+	// Parse identifiers
+	case LETTER:
+		addChar()
+		getChar()
+		for charClass == LETTER || charClass == DIGIT {
+			addChar()
+			getChar()
+		}
+		nextToken = IDENT
+		break
+
+	// Parse integer literals
+	case DIGIT:
+		addChar()
+		getChar()
+		for charClass == DIGIT {
+			addChar()
+			getChar()
+		}
+		nextToken = INT_LIT
+		break
+
+	// Parse parentheses and operators
+	case UNKNOWN:
+		lookup(nextChar)
+		getChar()
+
+		break
+
+	// EOF
+	case EOF:
+		nextToken = EOF
+		lexeme[0] = 'E'
+		lexeme[1] = 'O'
+		lexeme[2] = 'F'
+		for i := 3; i < len(lexeme); i++ {
+			lexeme[i] = 0
+		}
+		break
+	}
+	// End of switch
+
+	// Print token and lexeme
+	fmt.Printf("Next token is: %s | Next lexeme is %s\n", tokensCharClassesToString[nextToken], strings.TrimRight(string(lexeme[:]), "\x00"))
+	return nextToken
+}
+
+/*
+ * function: expr
+ * purpose:  Parses strings generated by the rule: <expr> -> <term> {(+ | -) <term>)
+ */
+func expr() {
+	//fmt.Printf("Enter <expr>\n")  // uncomment to trace tree
+
+	// Parse the first term
+	term()
+	// As long as the next token is + or -, get the next token and parse the next term
+	for (nextToken == ADD_OP) || (nextToken == SUB_OP) {
+		lex()
+		term()
+	}
+	//fmt.Printf("Exit <expr>\n")  // uncomment to trace tree
+}
+
+/*
+ * function: term
+ * purpose:  Parses strings generated by the rule: <term> -> <factor> {(* | /) <factor>)
+ */
+func term() {
+	//fmt.Printf("Enter <term>\n")  // uncomment to trace tree
+
+	// Parse the first factor
+	factor()
+	// As long as the next token is * or /, get the next token and parse the next factor
+	for (nextToken == MULT_OP) || (nextToken == DIV_OP) {
+		lex()
+		factor()
+	}
+	//fmt.Printf("Exit <term>\n")  // uncomment to trace tree
+}
+
+/*
+ * function: factor
+ * purpose:  Parses strings generated by the rule: <factor> -> id | int_constant | ( <expr> )
+ */
+func factor() {
+	//fmt.Printf("Enter <factor>\n")  // uncomment to trace tree
+
+	if nextToken == IDENT || nextToken == INT_LIT {
+		//get next token
+		lex()
+	} else {
+		// if nextToken is ( <expr> ), call lex to pass over the left parenthesis, call expr, and check for the right parenthesis
+		if nextToken == LEFT_PAREN {
+			lex()
+			expr()
+			if nextToken == RIGHT_PAREN {
+				lex()
+			} else {
+				fmt.Printf("Missing matching right parenthesis.\n")
+				fmt.Printf("exit status 1\n")
+				os.Exit(1);
+			}
+		} else {
+			// It was not an id, an integer literal, or a left parenthesis, so
+			fmt.Printf("Incorrect tokki syntax.\n")
+			fmt.Printf("exit status 1\n")
+			os.Exit(1);
+		}
+	}
+	//fmt.Printf("Exit <factor>\n")  // uncomment to trace tree
+}
