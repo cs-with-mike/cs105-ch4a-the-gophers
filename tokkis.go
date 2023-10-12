@@ -17,6 +17,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 	"unicode"
 )
 
@@ -242,7 +243,7 @@ func lex() int {
 	for i := 0; i < depthCount; i++ {
 		fmt.Printf("=")
 	}
-	fmt.Printf(" %s [ %s ]\n", tokensCharClassesToString[nextToken], lexeme)
+	fmt.Printf(" %s [ %s ]\n", tokensCharClassesToString[nextToken], strings.TrimRight(string(lexeme[:]), "\x00"))
 	return nextToken
 }
 
