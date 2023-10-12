@@ -90,7 +90,7 @@ func main() {
 	} else {
 		depthCount = 0
 		getChar()
-		if charClass == EOF {
+		if nextToken == EOF {
 			lex()
 		} else {
 			lex()
@@ -160,7 +160,6 @@ func addChar() {
 		}
 	} else {
 		fmt.Println("Error - lexeme is too long")
-		fmt.Println("exit status 1")
 	}
 }
 
@@ -299,6 +298,7 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
+<<<<<<< HEAD
 				fmt.Printf("Missing matching right parenthesis.\n")
 				fmt.Printf("exit status 1\n")
 				os.Exit(1)
@@ -308,6 +308,15 @@ func factor() {
 			fmt.Printf("Incorrect tokki syntax.\n")
 			fmt.Printf("exit status 1\n")
 			os.Exit(1)
+=======
+				fmt.Println("Missing matching right parenthesis.")
+				os.Exit(1);
+			}
+		} else {
+			// It was not an id, an integer literal, or a left parenthesis, so
+			fmt.Println("Error - invalid tokki syntax at:")
+			os.Exit(1);
+>>>>>>> c8f6b127bbcd1f845980f8fe73afbe29c174f266
 		}
 	}
 	//fmt.Printf("Exit <factor>\n")  // uncomment to trace tree
