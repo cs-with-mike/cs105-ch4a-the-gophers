@@ -30,7 +30,6 @@ var (
 	lexLen      int
 	token       int
 	nextToken   int
-	inputSource string
 	contents    []byte
 	depthCount	int
 )
@@ -172,8 +171,8 @@ func getChar() {
 	if len(contents) > 0 { 
 		nextChar = contents[0]
 		contents = contents[1:]
-		// lastChar moniters the last char we added 
-		lastChar = nextChar
+		lastChar = nextChar 	// lastChar monitors the last char we added
+		
 		if nextChar != 0 {
 			if unicode.IsLetter(rune(nextChar)) {
 				charClass = LETTER
@@ -320,16 +319,14 @@ func factor() {
 			expr()
 			if nextToken == RIGHT_PAREN {
 				lex()
-			} else {
-				// don't want to print this ever 
-				// add a global var that keeps track of prev char -- you print that here 
-				// fmt.Println("Missing matching right parenthesis.")
-				fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
+			} else { 
+				// global var that keeps track of prev char and prints in error message 
+				fmt.Printf("Error - invalid tokki syntax at: %s\n", string(lastChar))
 				os.Exit(0);
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			fmt.Printf("Error - invalid tokki syntax at:")
+			fmt.Printf("Error - invalid tokki syntax at: %s\n", string(lastChar))
 			os.Exit(0);
 		}
 	}
