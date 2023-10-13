@@ -322,12 +322,12 @@ func factor() {
 			} else { 
 				// global var that keeps track of prev char and prints in error message 
 				fmt.Printf("Error - invalid tokki syntax at: %s\n", string(lastChar))
-				os.Exit(0);
+				os.Exit(1);
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
 			fmt.Printf("Error - invalid tokki syntax at: %s\n", string(lastChar))
-			os.Exit(0);
+			os.Exit(1);
 		}
 	}
 	for i := 0; i < depthCount; i++ {
