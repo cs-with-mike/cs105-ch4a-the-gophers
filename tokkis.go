@@ -329,7 +329,7 @@ func factor() {
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
+			fmt.Printf("Error - invalid tokki syntax at:")
 			os.Exit(0);
 		}
 	}
