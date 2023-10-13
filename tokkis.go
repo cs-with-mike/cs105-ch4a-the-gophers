@@ -320,7 +320,8 @@ func factor() {
 			} else {
 				// don't want to print this ever 
 				// add a global var that keeps track of prev char -- you print that here 
-				fmt.Println("Missing matching right parenthesis.")
+				// fmt.Println("Missing matching right parenthesis.")
+				fmt.Println("Error - invalid tokki syntax at:")
 				os.Exit(0);
 			}
 		} else {
