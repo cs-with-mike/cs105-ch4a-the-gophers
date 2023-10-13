@@ -41,7 +41,7 @@ We added a new global variable (depthCount) to keep track of the right and left 
 
 For the custom error message that prints the last character accessed before failure, we created a new global variable (lastChar) and saved nextChar in lastChar before changing nextChar. When it failed on nextChar, we printed that it failed at lastChar. This helps the user know where the input failed.
 
-Once the recusrion was working, it was fairly easy to add the pretty arrow in and out formatted output.
+Once the recusrion was working, it was fairly easy to add the pretty arrow in and out formatted output. We also had to do some reverse engineering. Based on the sample output and auto-grader, we were able to figure out the correct output and error messages.
 
 ## Lessons Learned
 ### Assignment Chapter 4A
