@@ -26,6 +26,7 @@ var (
 	charClass   int
 	lexeme      [100]byte
 	nextChar    byte
+	lastChar    byte
 	lexLen      int
 	token       int
 	nextToken   int
@@ -169,6 +170,8 @@ func getNonBlank() {
  */
 func getChar() {
 	if len(contents) > 0 {
+		// lastChar moniters the last char we added 
+		lastChar = nextChar 
 		nextChar = contents[0]
 		contents = contents[1:]
 		if nextChar != 0 {
@@ -321,12 +324,12 @@ func factor() {
 				// don't want to print this ever 
 				// add a global var that keeps track of prev char -- you print that here 
 				// fmt.Println("Missing matching right parenthesis.")
-				fmt.Println("Error - invalid tokki syntax at:")
+				fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
 				os.Exit(0);
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			fmt.Println("Error - invalid tokki syntax at:")
+			fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
 			os.Exit(0);
 		}
 	}
