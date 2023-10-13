@@ -169,11 +169,11 @@ func getNonBlank() {
  * purpose:  Gets the next character of input and determines its character class
  */
 func getChar() {
-	if len(contents) > 0 {
-		// lastChar moniters the last char we added 
-		lastChar = nextChar 
+	if len(contents) > 0 { 
 		nextChar = contents[0]
 		contents = contents[1:]
+		// lastChar moniters the last char we added 
+		lastChar = nextChar
 		if nextChar != 0 {
 			if unicode.IsLetter(rune(nextChar)) {
 				charClass = LETTER
