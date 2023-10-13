@@ -318,13 +318,15 @@ func factor() {
 			if nextToken == RIGHT_PAREN {
 				lex()
 			} else {
+				// don't want to print this ever 
+				// add a global var that keeps track of prev char -- you print that here 
 				fmt.Println("Missing matching right parenthesis.")
-				os.Exit(1);
+				//os.Exit(1);
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
 			fmt.Println("Error - invalid tokki syntax at:")
-			os.Exit(1);
+			//os.Exit(1);
 		}
 	}
 	for i := 0; i < depthCount; i++ {
