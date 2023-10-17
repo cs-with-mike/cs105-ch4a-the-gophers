@@ -23,15 +23,15 @@ import (
 
 // Global Variables
 var (
-	charClass   int
-	lexeme      [100]byte
-	nextChar    byte
-	lastChar    byte
-	lexLen      int
-	token       int
-	nextToken   int
-	contents    []byte
-	depthCount	int
+	charClass  int
+	lexeme     [100]byte
+	nextChar   byte
+	lastChar   byte
+	lexLen     int
+	token      int
+	nextToken  int
+	contents   []byte
+	depthCount int
 )
 
 // Character Classes
@@ -88,7 +88,7 @@ func main() {
 		fmt.Println("File reading error", err)
 		return
 	} else {
-		depthCount = 0;
+		depthCount = 0
 		getChar()
 		if nextToken == EOF {
 			lex()
@@ -151,7 +151,7 @@ func getNonBlank() {
  * function: addChar
  * purpose:  Adds nextChar to lexeme and checks to make sure it isn't too long
  */
- func addChar() {
+func addChar() {
 	if lexLen <= 98 {
 		lexeme[lexLen] = nextChar
 		lexLen++
@@ -168,11 +168,11 @@ func getNonBlank() {
  * purpose:  Gets the next character of input and determines its character class
  */
 func getChar() {
-	if len(contents) > 0 { 
+	if len(contents) > 0 {
 		nextChar = contents[0]
 		contents = contents[1:]
-		lastChar = nextChar 	// lastChar monitors the last char we added
-		
+		lastChar = nextChar // lastChar monitors the last char we added
+
 		if nextChar != 0 {
 			if unicode.IsLetter(rune(nextChar)) {
 				charClass = LETTER
@@ -319,15 +319,15 @@ func factor() {
 			expr()
 			if nextToken == RIGHT_PAREN {
 				lex()
-			} else { 
-				// global var that keeps track of prev char and prints in error message 
+			} else {
+				// global var that keeps track of prev char and prints in error message
 				fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
-				os.Exit(0);
+				os.Exit(0)
 			}
 		} else {
 			// It was not an id, an integer literal, or a left parenthesis, so
-			fmt.Printf("Error - invalid tokki syntax at: ")
-			os.Exit(0);
+			fmt.Printf("Error - invalid tokki syntax at: %s", string(lastChar))
+			os.Exit(0)
 		}
 	}
 	for i := 0; i < depthCount; i++ {
