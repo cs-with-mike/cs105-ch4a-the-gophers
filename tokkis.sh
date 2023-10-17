@@ -19,4 +19,5 @@ mkdir -p ./go_cache; export GOCACHE=$(pwd)/go_cache
 echo "Running Tokki ..."
 
 # Here is the command to run & output it.
-go run tokki.go $1 > out.txt
+go build tokkis.go
+./tokkis $1 > out.parser.txt
